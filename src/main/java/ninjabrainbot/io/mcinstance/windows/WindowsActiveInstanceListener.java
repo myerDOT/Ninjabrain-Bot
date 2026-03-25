@@ -146,9 +146,14 @@ public class WindowsActiveInstanceListener implements IActiveInstanceProvider, R
 	}
 
 	private String getMinecraftDirectory(String nativesJvmArgument) {
-		int dotMinecraftIndex = nativesJvmArgument.lastIndexOf(".minecraft");
-		if (dotMinecraftIndex != -1)
-			return nativesJvmArgument.substring(19, dotMinecraftIndex + 10);
+		int minecraftIndex = nativesJvmArgument.lastIndexOf(".minecraft");
+
+		if (minecraftIndex == -1) {
+			minecraftIndex = nativesJvmArgument.lastIndexOf("minecraft");
+		}
+
+		if (minecraftIndex != -1)
+			return nativesJvmArgument.substring(19, minecraftIndex + 10);
 
 		if (nativesJvmArgument.endsWith("natives")) {
 			String dotMinecraftDirectory = nativesJvmArgument.substring(19).replace("natives", ".minecraft");
